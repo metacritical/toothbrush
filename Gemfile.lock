@@ -1,10 +1,12 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    minitest (4.1.0)
     racc (1.4.9)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  minitest
   racc
