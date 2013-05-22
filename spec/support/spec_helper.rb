@@ -3,6 +3,7 @@ Bundler.setup(:development)
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'minitest/spec'
+require 'pp'
 
-#Include Toplevel ToothBrush Module
-include ToothBrush
+
+ENV["VERBOSE"] = "true"
