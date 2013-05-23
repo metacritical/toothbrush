@@ -36,6 +36,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  coderay
   guard-minitest
   minitest
   racc
