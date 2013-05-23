@@ -1,1 +1,3 @@
+export VERBOSE=true
 ruby -Ispec $(ls spec/*_spec.rb)
+unset VERBOSE
