@@ -23,7 +23,7 @@ module ToothBrush
                                             @parsed_tokens << [:IDENTIFIER, matched, matched_size]
                                           end
         when match(/([ \t]+)/)     then @parsed_tokens << [:WHITESPACE, matched, matched_size]
-        when match(/[^\n+]\s+|\A\s+/) then @parsed_tokens << [:INDENT, matched, matched_size]
+        when match(/\s+/) then @parsed_tokens << [:INDENT, matched, matched_size]
         when match(ASSIGNMENT)       then @parsed_tokens << [:ASSIGNMENT, matched, matched_size]
         when match(/\'/)             then @parsed_tokens << [:SINGLE_QUOTE, matched, matched_size]
         when match(/\"/)             then @parsed_tokens << [:DOUBLE_QUOTE, matched, matched_size]
