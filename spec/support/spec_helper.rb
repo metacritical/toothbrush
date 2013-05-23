@@ -4,6 +4,3 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'minitest/spec'
 require 'pp'
-
-
-ENV["VERBOSE"] = "true"
