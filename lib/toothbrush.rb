@@ -1,4 +1,7 @@
+require 'toothbrush/errors'
+require 'toothbrush/tokens'
 require 'toothbrush/lexer'
+require 'toothbrush/scanner'
 
 module ToothBrush
   module Version
