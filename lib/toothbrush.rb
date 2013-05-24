@@ -2,6 +2,7 @@ require 'toothbrush/errors'
 require 'toothbrush/tokens'
 require 'toothbrush/lexer'
 require 'toothbrush/scanner'
+require 'toothbrush/error_printer'
 
 module ToothBrush
   module Version
