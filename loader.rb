@@ -8,9 +8,9 @@ require 'toothbrush'
 #Include Toplevel ToothBrush Module
 include ToothBrush
 include ColorPrinter
+include ::ErrorPrinter
 
 class Lexer
   include ::Tokens
   include ::Scanner
 end
-

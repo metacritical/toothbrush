@@ -16,10 +16,6 @@ module ToothBrush
       parsed_tokens
     end
 
-    def error!(message)
-      raise LexError, message rescue paint("#{$!.class}\n-> #{$!.message} :: #{getline position}(line)\n", :red);exit
-    end
-
     def generate_token
       case
       when method_token

@@ -1,6 +1,7 @@
 module ToothBrush
   module Tokens
     KEYWORDS = %w(if alias)
+    RESERVED_WORDS = %w(function)
     
     IDENTIFIER = %r|\w+|
     METHOD = %r|\w+\:|
@@ -14,9 +15,10 @@ module ToothBrush
     def method_token
       parsed_tokens << [:METHOD , matched] if match(METHOD)
     end
-    
+
     def identifier_token
       if match(IDENTIFIER) then 
+        syntax_error! "Syntax Error : Invalid usage of reserved keywords" if RESERVED_WORDS.include?(matched) 
         if KEYWORDS.include?(matched)
           parsed_tokens << [matched.upcase.intern, matched, matched_size]
         else

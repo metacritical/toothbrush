@@ -21,7 +21,7 @@ describe Lexer do
   end
 
   it "should return an array of tokens for a statement" do
-    lexer = lex "alias lsd = 'ls -app'"
+    lexer = lex "function alias lsd = 'ls -app'"
     lexer.tokenize.must_equal [
      [:ALIAS, "alias", 5], [:WHITESPACE, " ", 1], [:IDENTIFIER, "lsd", 3], [:WHITESPACE, " ", 1],
      [:ASSIGNMENT, "=", 1], [:WHITESPACE, " ", 1], [:SINGLE_QUOTE, "'", 1], [:IDENTIFIER, "ls", 2],
