@@ -7,6 +7,7 @@ module ToothBrush
       @scanner = StringScanner.new input
       @parsed_tokens = []
     end
+
     def tokenize
       while not @scanner.eos?
         generate_token
@@ -18,14 +19,15 @@ module ToothBrush
 
     def generate_token
       case
-      when method_token
+      when function_token
+      when number_token
+      when parameters_token
+      when operator_token
       when identifier_token
       when whitespace_token
       when indent_token
-      when assignment_token
       when single_quote_token
       when double_quote_token
-      when parameters_token
       else
         error! "Invalid Token : '#{scanner.check /.*/}' -> #{position}(char)"
       end

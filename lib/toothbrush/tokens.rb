@@ -4,16 +4,18 @@ module ToothBrush
     RESERVED_WORDS = %w(function)
     
     IDENTIFIER = %r|\w+|
-    METHOD = %r|\w+\:|
-    ASSIGNMENT = %r|\=|
+    FUNCTION = %r|\w+\:|
     INDENT = %r|\s+|
     WHITESPACE = %r|([ \t]+)|
     SINGLE_QUOTE = %r|\'|
     DOUBLE_QUOTE = %r|\"|
     PARAMETERS = %r|\-\w+|
+    NUMBER = %r_[0-9]+|[0-9]+.[0-9]+_
+    OPERATOR = %r_([+\*&|\/\-%=<>:!?]+)_
 
-    def method_token
-      parsed_tokens << [:METHOD , matched] if match(METHOD)
+
+    def function_token
+      parsed_tokens << [:FUNCTION , matched] if match(FUNCTION)
     end
 
     def identifier_token
@@ -44,11 +46,24 @@ module ToothBrush
     end
     
     def indent_token
-      parsed_tokens << [:INDENT, matched, matched_size] if match(INDENT) 
+      sanitize_indent_or_newline if match(INDENT)
     end
     
-    def assignment_token
-      parsed_tokens << [:ASSIGNMENT, matched, matched_size] if match(ASSIGNMENT)
+    def sanitize_indent_or_newline
+      indent = matched.slice(/[^\n]+/)
+      unless indent.nil?
+        parsed_tokens << [:INDENT, indent, indent.size]
+      else
+        parsed_tokens << [:NEWLINE, "\n", 1]
+      end
+    end
+
+    def operator_token
+      parsed_tokens << [:OPERATOR, matched, matched.size] if match(OPERATOR)
+    end
+
+    def number_token
+      parsed_tokens << [:NUMBER, matched, matched_size] if match(NUMBER)
     end
   end
 end
