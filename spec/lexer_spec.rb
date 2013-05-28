@@ -89,4 +89,14 @@ CODE
 )
     lexer.tokenize
   end
+
+  it "Should be able to call next_token on lexer" do
+    lexer = lex(<<CODE
+alias lsd = 'ls -A'
+CODE
+                )
+    lexer.tokenize
+    lexer.next_token.must_equal [:ALIAS, "alias", 5]
+  end
+
 end

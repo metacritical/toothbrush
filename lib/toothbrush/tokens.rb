@@ -70,5 +70,9 @@ module ToothBrush
       parsed_tokens.last && parsed_tokens.last[0]
     end
 
+    def next_token
+      parsed_tokens.shift unless parsed_tokens.empty?
+    end
+
   end
 end

@@ -14,7 +14,7 @@ module ToothBrush
       end
       parsed_tokens << [false, false , false]
       code_inspect parsed_tokens if ENV["VERBOSE"]
-      parsed_tokens
+      parsed_tokens 
     end
 
     def generate_token
