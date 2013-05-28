@@ -22,17 +22,17 @@ describe Lexer do
 
   it "should lex expressions" do
     lexer = lex %Q{
-A = 1 + 2
-B = 3 - 4
-C = 3 * 4
-D = 3 / 4
-E = 3 && 4
-F = 3 % 4
-G = 3 < 4
-H = 3 > 4
-I = 3 % 4
-M == J
-echo A > B
+A = 1 + 2;
+B = 3 - 4;
+C = 3 * 4;
+D = 3 / 4;
+E = 3 && 4;
+F = 3 % 4;
+G = 3 < 4;
+H = 3 > 4;
+I = 3 % 4;
+M == J;
+echo A > B;
 }
     
     lexer.tokenize.must_equal [
@@ -70,10 +70,11 @@ echo A > B
   it "should return an array of tokens for a statement" do
     lexer = lex "alias lsd = 'ls -app'"
     lexer.tokenize.must_equal [
-     [:ALIAS, "alias", 5], [:WHITESPACE, " ", 1], [:IDENTIFIER, "lsd", 3], [:WHITESPACE, " ", 1],
-     [:OPERATOR, "=", 1], [:WHITESPACE, " ", 1], [:SINGLE_QUOTE, "'", 1], [:IDENTIFIER, "ls", 2],
-     [:WHITESPACE, " ", 1], [:PARAMETERS, "-app", 4], [:SINGLE_QUOTE, "'", 1], [false, false, false]
-    ]
+                               [:ALIAS, "alias", 5], [:WHITESPACE, " ", 1], [:IDENTIFIER, "lsd", 3],
+                               [:WHITESPACE, " ", 1], [:OPERATOR, "=", 1], [:WHITESPACE, " ", 1], 
+                               [:STRING, "'ls -app'", 9], [false, false, false]
+                              ]
+
   end
 
   it "should be able recognize a method block" do
@@ -81,7 +82,7 @@ echo A > B
           <<CODE
 runner:
 
-  echo "hi"
+  echo "hi";
 
 
 CODE

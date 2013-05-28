@@ -26,8 +26,8 @@ module ToothBrush
       when identifier_token
       when whitespace_token
       when indent_token
-      when single_quote_token
-      when double_quote_token
+      when terminator_token
+      when string_token
       else
         error! "Invalid Token : '#{scanner.check /.*/}' -> #{position}(char)"
       end

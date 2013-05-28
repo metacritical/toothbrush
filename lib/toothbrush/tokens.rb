@@ -7,12 +7,11 @@ module ToothBrush
     FUNCTION = %r|\w+\:|
     INDENT = %r|\s+|
     WHITESPACE = %r|([ \t]+)|
-    SINGLE_QUOTE = %r|\'|
-    DOUBLE_QUOTE = %r|\"|
+    STRING = %r_""|''|"(.*?)"|'(.*?)'_
     PARAMETERS = %r|\-\w+|
     NUMBER = %r_[0-9]+|[0-9]+.[0-9]+_
     OPERATOR = %r_([+\*&|\/\-%=<>:!?]+)_
-
+    TERMINATOR = %r|\;+|
 
     def function_token
       parsed_tokens << [:FUNCTION , matched] if match(FUNCTION)
@@ -33,14 +32,10 @@ module ToothBrush
       parsed_tokens << [:PARAMETERS, matched, matched_size] if match(PARAMETERS)
     end
     
-    def double_quote_token
-      parsed_tokens << [:DOUBLE_QUOTE, matched, matched_size] if match(DOUBLE_QUOTE)
+    def string_token
+      parsed_tokens << [:STRING, matched, matched_size] if match(STRING)
     end
     
-    def single_quote_token
-      parsed_tokens << [:SINGLE_QUOTE, matched, matched_size] if match(SINGLE_QUOTE)
-    end
-
     def whitespace_token
       parsed_tokens << [:WHITESPACE, matched, matched_size] if match(WHITESPACE)
     end
@@ -48,13 +43,18 @@ module ToothBrush
     def indent_token
       sanitize_indent_or_newline if match(INDENT)
     end
+
+    def terminator_token
+      sanitize_indent_or_newline if match(TERMINATOR)
+    end
     
     def sanitize_indent_or_newline
-      indent = matched.slice(/[^\n]+/)
+      indent = matched.slice(/[^(\n|\;)]+/)
       unless indent.nil?
         parsed_tokens << [:INDENT, indent, indent.size]
       else
-        parsed_tokens << [:NEWLINE, "\n", 1]
+        parsed_tokens << [:NEWLINE, "\n", 1] unless previous_token == :NEWLINE
+        true
       end
     end
 
@@ -65,5 +65,10 @@ module ToothBrush
     def number_token
       parsed_tokens << [:NUMBER, matched, matched_size] if match(NUMBER)
     end
+
+    def previous_token
+      parsed_tokens.last && parsed_tokens.last[0]
+    end
+
   end
 end
