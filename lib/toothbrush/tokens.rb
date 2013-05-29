@@ -1,6 +1,6 @@
 module ToothBrush
   module Tokens
-    KEYWORDS = %w(if alias)
+    KEYWORDS = %w(if alias do else while when then case)
     RESERVED_WORDS = %w(function)
     
     IDENTIFIER = %r|\w+|
@@ -21,23 +21,23 @@ module ToothBrush
       if match(IDENTIFIER) then 
         syntax_error! "Syntax Error : Invalid usage of reserved keywords" if RESERVED_WORDS.include?(matched) 
         if KEYWORDS.include?(matched)
-          parsed_tokens << [matched.upcase.intern, matched, matched_size]
+          parsed_tokens << [matched.upcase.intern, matched]
         else
-          parsed_tokens << [:IDENTIFIER, matched, matched_size]
+          parsed_tokens << [:IDENTIFIER, matched]
         end
       end
     end
     
     def parameters_token
-      parsed_tokens << [:PARAMETERS, matched, matched_size] if match(PARAMETERS)
+      parsed_tokens << [:PARAMETERS, matched] if match(PARAMETERS)
     end
     
     def string_token
-      parsed_tokens << [:STRING, matched, matched_size] if match(STRING)
+      parsed_tokens << [:STRING, matched] if match(STRING)
     end
     
     def whitespace_token
-      parsed_tokens << [:WHITESPACE, matched, matched_size] if match(WHITESPACE)
+      parsed_tokens << [:WHITESPACE, matched] if match(WHITESPACE)
     end
     
     def indent_token
@@ -51,19 +51,19 @@ module ToothBrush
     def sanitize_indent_or_newline
       indent = matched.slice(/[^(\n|\;)]+/)
       unless indent.nil?
-        parsed_tokens << [:INDENT, indent, indent.size]
+        parsed_tokens << [:INDENT, indent]
       else
-        parsed_tokens << [:NEWLINE, "\n", 1] unless previous_token == :NEWLINE
+        parsed_tokens << [:NEWLINE, "\n"] unless previous_token == :NEWLINE
         true
       end
     end
 
     def operator_token
-      parsed_tokens << [:OPERATOR, matched, matched.size] if match(OPERATOR)
+      parsed_tokens << [:OPERATOR, matched] if match(OPERATOR)
     end
 
     def number_token
-      parsed_tokens << [:NUMBER, matched, matched_size] if match(NUMBER)
+      parsed_tokens << [:NUMBER, matched] if match(NUMBER)
     end
 
     def previous_token
