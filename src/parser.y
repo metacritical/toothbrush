@@ -1,9 +1,26 @@
 class ToothBrush::Parser
+token IDENTIFIER PARAMETERS STRING WHITESPACE INDENT TERMINATOR NEWLINE NUMBER OPERATOR FUNCTION
+
 rule
-      string : a_or_cs abb | abb { puts "Found Abb!" };
-     a_or_cs : a_or_cs a_or_c | a_or_c;
-      a_or_c : 'a' | 'c';
-         abb : 'a' 'b' 'b';
+        Root : '#' { result = Expressions.new }
+             | Terminator { result = Expressions.new }
+             | Expressions { result = Expressions.new }
+             ;
+
+
+  Terminator : "\n"
+             | ";"
+             ;
+
+ Expressions : Identifier 
+             | Function
+             ;
+
+  Identifier : IDENTIFIER;
+
+    Function : FUNCTION;
+
+
 
 
 ---- inner
@@ -11,7 +28,8 @@ rule
 attr_accessor :result
 
 def parse(str)
-
+  @result
+  do_parse
 end
 
 
