@@ -12,7 +12,7 @@ module ToothBrush
       while not @scanner.eos?
         generate_token
       end
-      parsed_tokens << [false, false , false]
+      parsed_tokens << [false, false]
       code_inspect parsed_tokens if ENV["VERBOSE"]
       parsed_tokens 
     end
