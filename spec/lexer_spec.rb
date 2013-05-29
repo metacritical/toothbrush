@@ -92,7 +92,7 @@ CODE
 
   it "Should be able to call next_token on lexer" do
     lexer = lex(<<CODE
-alias lsd = 'ls -A'
+alias lsd = 'ls -A';
 CODE
                 )
     lexer.tokenize
