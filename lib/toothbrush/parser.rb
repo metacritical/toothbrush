@@ -11,58 +11,54 @@ module ToothBrush
 
 attr_accessor :result
 
-def parse(str)
+def lex(code)
+@lexer = Lexer.new(code)
+@lexer.tokenize #Kickstart lexer
+end
+
+def parse(code)
+  lex(code)
   @result
   do_parse
 end
 
-
+def next_token
+  @lexer.next_token
 end
 ##### State transition tables begin ###
 
 racc_action_table = [
-     9,    11,    12,   nil,   nil,   nil,   nil,   nil,   nil,    10,
-     2,     5,     6 ]
+     2,     3,     4,     5 ]
 
 racc_action_check = [
-     0,     1,    11,   nil,   nil,   nil,   nil,   nil,   nil,     0,
-     0,     0,     0 ]
+     0,     1,     2,     3 ]
 
 racc_action_pointer = [
-    -2,     1,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,
-   nil,     2,   nil ]
+   -12,     1,    -6,     3,   nil,   nil ]
 
 racc_action_default = [
-   -10,   -10,    -1,    -2,    -3,    -4,    -5,    -6,    -7,    -8,
-    -9,   -10,    13 ]
+    -3,    -3,    -1,    -3,    -2,     6 ]
 
 racc_goto_table = [
-     1,     3,     4,     7,     8 ]
+     1 ]
 
 racc_goto_check = [
-     1,     2,     3,     4,     5 ]
+     1 ]
 
 racc_goto_pointer = [
-   nil,     0,     1,     2,     3,     4 ]
+   nil,     0 ]
 
 racc_goto_default = [
-   nil,   nil,   nil,   nil,   nil,   nil ]
+   nil,   nil ]
 
 racc_reduce_table = [
   0, 0, :racc_error,
-  1, 16, :_reduce_1,
-  1, 16, :_reduce_2,
-  1, 16, :_reduce_3,
-  1, 17, :_reduce_none,
-  1, 17, :_reduce_none,
-  1, 18, :_reduce_none,
-  1, 18, :_reduce_none,
-  1, 19, :_reduce_none,
-  1, 20, :_reduce_none ]
+  1, 14, :_reduce_1,
+  2, 14, :_reduce_2 ]
 
-racc_reduce_n = 10
+racc_reduce_n = 3
 
-racc_shift_n = 13
+racc_shift_n = 6
 
 racc_token_table = {
   false => 0,
@@ -77,11 +73,9 @@ racc_token_table = {
   :NUMBER => 9,
   :OPERATOR => 10,
   :FUNCTION => 11,
-  "#" => 12,
-  "\n" => 13,
-  ";" => 14 }
+  :ALIAS => 12 }
 
-racc_nt_base = 15
+racc_nt_base = 13
 
 racc_use_result_var = true
 
@@ -114,15 +108,9 @@ Racc_token_to_s_table = [
   "NUMBER",
   "OPERATOR",
   "FUNCTION",
-  "\"#\"",
-  "\"\\n\"",
-  "\";\"",
+  "ALIAS",
   "$start",
-  "Root",
-  "Terminator",
-  "Expressions",
-  "Identifier",
-  "Function" ]
+  "Root" ]
 
 Racc_debug_parser = false
 
@@ -131,31 +119,14 @@ Racc_debug_parser = false
 # reduce 0 omitted
 
 def _reduce_1(val, _values, result)
- result = Expressions.new 
+ puts "Found Just Alias #{val[0].intern}"
     result
 end
 
 def _reduce_2(val, _values, result)
- result = Expressions.new 
+ puts "Found Alias Newline #{val[0].intern}"
     result
 end
-
-def _reduce_3(val, _values, result)
- result = Expressions.new 
-    result
-end
-
-# reduce 4 omitted
-
-# reduce 5 omitted
-
-# reduce 6 omitted
-
-# reduce 7 omitted
-
-# reduce 8 omitted
-
-# reduce 9 omitted
 
 def _reduce_none(val, _values, result)
   val[0]
