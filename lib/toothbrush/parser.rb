@@ -23,44 +23,54 @@ attr_accessor :result
   end
 
   def next_token
-    @lexer.next_token
+    @lexer.next_token 
   end
 ##### State transition tables begin ###
 
 racc_action_table = [
-     5,     4,     2,     3,     6 ]
+     7,    10,     9,    12,    11,     6,     5,     8,    13,    15,
+     2,    16 ]
 
 racc_action_check = [
-     2,     2,     0,     1,     3 ]
+     0,     2,     2,     8,     7,     0,     0,     1,    11,    13,
+     0,    15 ]
 
 racc_action_pointer = [
-   -10,     3,    -7,     4,   nil,   nil,   nil ]
+    -2,     7,    -6,   nil,   nil,   nil,   nil,    -6,     3,   nil,
+   nil,    -1,   nil,    -1,   nil,     2,   nil ]
 
 racc_action_default = [
-    -5,    -5,    -1,    -5,    -2,    -3,     7 ]
+    -1,   -11,    -2,    -5,    -6,    -7,    -8,   -11,   -11,    -3,
+    -4,   -11,    17,   -11,   -10,   -11,    -9 ]
 
 racc_goto_table = [
-     1 ]
+     1,     3,     4,    14 ]
 
 racc_goto_check = [
-     1 ]
+     1,     2,     3,     4 ]
 
 racc_goto_pointer = [
-   nil,     0,   nil ]
+   nil,     0,     1,     2,    -8 ]
 
 racc_goto_default = [
-   nil,   nil,   nil ]
+   nil,   nil,   nil,   nil,   nil ]
 
 racc_reduce_table = [
   0, 0, :racc_error,
-  1, 14, :_reduce_1,
-  2, 14, :_reduce_2,
-  2, 14, :_reduce_3,
-  1, 15, :_reduce_4 ]
+  0, 15, :_reduce_none,
+  1, 15, :_reduce_2,
+  2, 15, :_reduce_3,
+  2, 15, :_reduce_4,
+  1, 15, :_reduce_5,
+  1, 15, :_reduce_none,
+  1, 17, :_reduce_none,
+  1, 17, :_reduce_8,
+  3, 18, :_reduce_none,
+  3, 16, :_reduce_10 ]
 
-racc_reduce_n = 5
+racc_reduce_n = 11
 
-racc_shift_n = 7
+racc_shift_n = 17
 
 racc_token_table = {
   false => 0,
@@ -75,9 +85,10 @@ racc_token_table = {
   :NUMBER => 9,
   :OPERATOR => 10,
   :FUNCTION => 11,
-  :ALIAS => 12 }
+  :ALIAS => 12,
+  :false => 13 }
 
-racc_nt_base = 13
+racc_nt_base = 14
 
 racc_use_result_var = true
 
@@ -111,9 +122,12 @@ Racc_token_to_s_table = [
   "OPERATOR",
   "FUNCTION",
   "ALIAS",
+  "false",
   "$start",
   "Root",
-  "identifier" ]
+  "Declaration",
+  "Terminator",
+  "Addition" ]
 
 Racc_debug_parser = false
 
@@ -121,23 +135,41 @@ Racc_debug_parser = false
 
 # reduce 0 omitted
 
-def _reduce_1(val, _values, result)
- puts "Found Just Alias #{val[0]} -- #{val[1]}"
-    result
-end
+# reduce 1 omitted
 
 def _reduce_2(val, _values, result)
- puts "Found Alias Newline #{val[0]} -- #{val[1]}"
+ p "Found Just Alias : #{val[0]}"
     result
 end
 
 def _reduce_3(val, _values, result)
-puts "Found Alias with terminator #{val[0]} -- #{val[1]}" 
+ p "Found Alias Newline : " + val[1]
     result
 end
 
 def _reduce_4(val, _values, result)
- puts "found first identifier" 
+p "Found Alias with Terminator : #{val[0]}  #{val[1]}" 
+    result
+end
+
+def _reduce_5(val, _values, result)
+ p "Found only declaration : #{val[0]}" 
+    result
+end
+
+# reduce 6 omitted
+
+# reduce 7 omitted
+
+def _reduce_8(val, _values, result)
+ parse_error! "Unexpected Token Found '#{val[0]}'" 
+    result
+end
+
+# reduce 9 omitted
+
+def _reduce_10(val, _values, result)
+ p "Found Identifier Operator Expr : #{val[0]} #{val[1]} #{val[2]}" 
     result
 end
 
