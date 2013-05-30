@@ -5,8 +5,9 @@ require_relative 'loader'
 
 @parser = Parser.new
 
-
+@parser.parse ""
+@parser.parse "\n"
 @parser.parse "alias"
 @parser.parse "alias\n"
 @parser.parse "alias;"
-@parser.parse "A = 1 + 2;"
+@parser.parse "A = 1 + 2"
