@@ -37,7 +37,8 @@ module ToothBrush
     end
     
     def whitespace_token
-      parsed_tokens << [:WHITESPACE, matched] if match(WHITESPACE)
+      true if match(WHITESPACE)
+      #parsed_tokens << [:WHITESPACE, matched] if match(WHITESPACE)
     end
     
     def indent_token
