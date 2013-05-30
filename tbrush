@@ -3,5 +3,10 @@
 require 'fileutils'
 require_relative 'loader'
 
-Parser.new.parse "alias"
-Parser.new.parse "alias\n"
+@parser = Parser.new
+
+
+@parser.parse "alias"
+@parser.parse "alias\n"
+@parser.parse "alias;"
+@parser.parse "A = 1 + 2;"

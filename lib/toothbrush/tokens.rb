@@ -49,12 +49,12 @@ module ToothBrush
     end
     
     def sanitize_indent_or_newline
-      indent = matched.slice(/[^(\n|\;)]+/)
-      unless indent.nil?
-        parsed_tokens << [:INDENT, indent]
+      slice_result = matched.slice(/[^(\n)]+/)
+      unless slice_result.nil?
+        return parsed_tokens << [:TERMINATOR , slice_result] if slice_result =~ TERMINATOR
+        return parsed_tokens << [:INDENT, slice_result] if slice_result =~ WHITESPACE
       else
         parsed_tokens << [:NEWLINE, "\n"] unless previous_token == :NEWLINE
-        true
       end
     end
 

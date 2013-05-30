@@ -11,33 +11,33 @@ module ToothBrush
 
 attr_accessor :result
 
-def lex(code)
-@lexer = Lexer.new(code)
-@lexer.tokenize #Kickstart lexer
-end
+  def lex(code)
+    @lexer = Lexer.new(code)
+    @lexer.tokenize #Kickstart lexer
+  end
 
-def parse(code)
-  lex(code)
-  @result
-  do_parse
-end
+  def parse(code)
+    lex(code)
+    @result
+    do_parse
+  end
 
-def next_token
-  @lexer.next_token
-end
+  def next_token
+    @lexer.next_token
+  end
 ##### State transition tables begin ###
 
 racc_action_table = [
-     2,     3,     4,     5 ]
+     5,     4,     2,     3,     6 ]
 
 racc_action_check = [
-     0,     1,     2,     3 ]
+     2,     2,     0,     1,     3 ]
 
 racc_action_pointer = [
-   -12,     1,    -6,     3,   nil,   nil ]
+   -10,     3,    -7,     4,   nil,   nil,   nil ]
 
 racc_action_default = [
-    -3,    -3,    -1,    -3,    -2,     6 ]
+    -5,    -5,    -1,    -5,    -2,    -3,     7 ]
 
 racc_goto_table = [
      1 ]
@@ -46,19 +46,21 @@ racc_goto_check = [
      1 ]
 
 racc_goto_pointer = [
-   nil,     0 ]
+   nil,     0,   nil ]
 
 racc_goto_default = [
-   nil,   nil ]
+   nil,   nil,   nil ]
 
 racc_reduce_table = [
   0, 0, :racc_error,
   1, 14, :_reduce_1,
-  2, 14, :_reduce_2 ]
+  2, 14, :_reduce_2,
+  2, 14, :_reduce_3,
+  1, 15, :_reduce_4 ]
 
-racc_reduce_n = 3
+racc_reduce_n = 5
 
-racc_shift_n = 6
+racc_shift_n = 7
 
 racc_token_table = {
   false => 0,
@@ -110,7 +112,8 @@ Racc_token_to_s_table = [
   "FUNCTION",
   "ALIAS",
   "$start",
-  "Root" ]
+  "Root",
+  "identifier" ]
 
 Racc_debug_parser = false
 
@@ -119,12 +122,22 @@ Racc_debug_parser = false
 # reduce 0 omitted
 
 def _reduce_1(val, _values, result)
- puts "Found Just Alias #{val[0].intern}"
+ puts "Found Just Alias #{val[0]} -- #{val[1]}"
     result
 end
 
 def _reduce_2(val, _values, result)
- puts "Found Alias Newline #{val[0].intern}"
+ puts "Found Alias Newline #{val[0]} -- #{val[1]}"
+    result
+end
+
+def _reduce_3(val, _values, result)
+puts "Found Alias with terminator #{val[0]} -- #{val[1]}" 
+    result
+end
+
+def _reduce_4(val, _values, result)
+ puts "found first identifier" 
     result
 end
 
