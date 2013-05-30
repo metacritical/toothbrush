@@ -28,20 +28,20 @@ attr_accessor :result
 ##### State transition tables begin ###
 
 racc_action_table = [
-     7,    10,     9,    12,    11,     6,     5,     8,    13,    15,
-     2,    16 ]
+     7,    10,     9,    13,    11,     6,     5,    12,     8,    15,
+     2,    16,    17,    18 ]
 
 racc_action_check = [
-     0,     2,     2,     8,     7,     0,     0,     1,    11,    13,
-     0,    15 ]
+     0,     2,     2,    11,     7,     0,     0,     8,     1,    13,
+     0,    14,    15,    16 ]
 
 racc_action_pointer = [
-    -2,     7,    -6,   nil,   nil,   nil,   nil,    -6,     3,   nil,
-   nil,    -1,   nil,    -1,   nil,     2,   nil ]
+    -2,     8,    -6,   nil,   nil,   nil,   nil,    -9,     7,   nil,
+   nil,    -6,   nil,    -5,    -3,     3,     4,   nil,   nil ]
 
 racc_action_default = [
-    -1,   -11,    -2,    -5,    -6,    -7,    -8,   -11,   -11,    -3,
-    -4,   -11,    17,   -11,   -10,   -11,    -9 ]
+    -1,   -12,    -2,    -5,    -6,    -7,    -8,   -12,   -12,    -3,
+    -4,   -12,    19,   -12,   -11,   -12,   -12,    -9,   -10 ]
 
 racc_goto_table = [
      1,     3,     4,    14 ]
@@ -57,20 +57,21 @@ racc_goto_default = [
 
 racc_reduce_table = [
   0, 0, :racc_error,
-  0, 15, :_reduce_none,
-  1, 15, :_reduce_2,
-  2, 15, :_reduce_3,
-  2, 15, :_reduce_4,
-  1, 15, :_reduce_5,
-  1, 15, :_reduce_none,
-  1, 17, :_reduce_none,
-  1, 17, :_reduce_8,
-  3, 18, :_reduce_none,
-  3, 16, :_reduce_10 ]
+  0, 19, :_reduce_none,
+  1, 19, :_reduce_2,
+  2, 19, :_reduce_3,
+  2, 19, :_reduce_4,
+  1, 19, :_reduce_5,
+  1, 19, :_reduce_none,
+  1, 21, :_reduce_none,
+  1, 21, :_reduce_8,
+  3, 22, :_reduce_9,
+  3, 22, :_reduce_10,
+  3, 20, :_reduce_11 ]
 
-racc_reduce_n = 11
+racc_reduce_n = 12
 
-racc_shift_n = 17
+racc_shift_n = 19
 
 racc_token_table = {
   false => 0,
@@ -86,9 +87,13 @@ racc_token_table = {
   :OPERATOR => 10,
   :FUNCTION => 11,
   :ALIAS => 12,
-  :false => 13 }
+  :ASSIGNMENT => 13,
+  :ADDITION => 14,
+  :SUBSTRACTION => 15,
+  :MULTIPLICATION => 16,
+  :DIVISION => 17 }
 
-racc_nt_base = 14
+racc_nt_base = 18
 
 racc_use_result_var = true
 
@@ -122,12 +127,16 @@ Racc_token_to_s_table = [
   "OPERATOR",
   "FUNCTION",
   "ALIAS",
-  "false",
+  "ASSIGNMENT",
+  "ADDITION",
+  "SUBSTRACTION",
+  "MULTIPLICATION",
+  "DIVISION",
   "$start",
   "Root",
   "Declaration",
   "Terminator",
-  "Addition" ]
+  "Arithmetic" ]
 
 Racc_debug_parser = false
 
@@ -166,9 +175,17 @@ def _reduce_8(val, _values, result)
     result
 end
 
-# reduce 9 omitted
+def _reduce_9(val, _values, result)
+ p "Addition in bash : $((#{val[0]} #{val[1]} #{val[2]}))" 
+    result
+end
 
 def _reduce_10(val, _values, result)
+ p "Addition in bash : $((#{val[0]} #{val[1]} #{val[2]}))" 
+    result
+end
+
+def _reduce_11(val, _values, result)
  p "Found Identifier Operator Expr : #{val[0]} #{val[1]} #{val[2]}" 
     result
 end
