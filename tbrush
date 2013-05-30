@@ -11,3 +11,4 @@ require_relative 'loader'
 @parser.parse "alias\n"
 @parser.parse "alias;"
 @parser.parse "A = 1 + 2"
+@parser.parse "A = 3 + 4 + 5 + 6"
