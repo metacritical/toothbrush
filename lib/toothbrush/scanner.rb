@@ -1,6 +1,5 @@
 module ToothBrush
   module Scanner
-    private
     def	match regex
       scanner.scan regex
     end
