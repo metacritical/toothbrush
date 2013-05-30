@@ -1,5 +1,6 @@
 class ToothBrush::Parser
-token IDENTIFIER PARAMETERS STRING WHITESPACE INDENT TERMINATOR NEWLINE NUMBER OPERATOR FUNCTION ALIAS false
+token IDENTIFIER PARAMETERS STRING WHITESPACE INDENT TERMINATOR NEWLINE NUMBER OPERATOR FUNCTION ALIAS ASSIGNMENT
+token ADDITION SUBSTRACTION MULTIPLICATION DIVISION
   
 rule
         Root : /* Empty String */ #Nothing to do though we might need to take some action eventually for  
@@ -14,9 +15,11 @@ rule
              | TERMINATOR { parse_error! "Unexpected Token Found '#{val[0]}'" }
              ;
 
-    Addition : NUMBER OPERATOR NUMBER;
+  Arithmetic : NUMBER ADDITION NUMBER { p "Addition in bash : $((#{val[0]} #{val[1]} #{val[2]}))" }
+             | Arithmetic ADDITION NUMBER { p "Addition in bash : $((#{val[0]} #{val[1]} #{val[2]}))" }
+             ;
 
- Declaration : IDENTIFIER OPERATOR Addition { p "Found Identifier Operator Expr : #{val[0]} #{val[1]} #{val[2]}" }
+ Declaration : IDENTIFIER ASSIGNMENT Arithmetic { p "Found Identifier Operator Expr : #{val[0]} #{val[1]} #{val[2]}" }
              ;
 
 ---- inner
