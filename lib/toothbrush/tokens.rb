@@ -60,7 +60,15 @@ module ToothBrush
     end
 
     def operator_token
-      parsed_tokens << [:OPERATOR, matched] if match(OPERATOR)
+      if match(OPERATOR)
+        case matched
+        when '=' then parsed_tokens << [:ASSIGNMENT , matched]
+        when '+' then parsed_tokens << [:ADDITION, matched]
+        when '-' then parsed_tokens << [:SUBSTRACTION, matched]
+        when '*' then parsed_tokens << [:MULTIPLICATION, matched]              
+        when '/' then parsed_tokens << [:DIVISION, matched]
+        end
+      end
     end
 
     def number_token
