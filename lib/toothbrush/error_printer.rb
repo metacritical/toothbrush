@@ -7,5 +7,9 @@ module ToothBrush
     def syntax_error!(message)
       raise SyntaxError , message rescue paint("#{$!.class}\n-> #{$!.message} :: '#{matched}' @ #{getline position}(line)\n", :red);exit
     end
+
+    def parse_error!(message)
+      raise ParseError , message rescue paint("#{$!.class}\n-> #{message} ::  #{@lexer.position}\n" , :red)
+    end
   end
 end
