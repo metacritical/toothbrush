@@ -36,25 +36,23 @@ echo A > B;
 }
     
     lexer.tokenize.must_equal [
-[:NEWLINE, "\n"], [:IDENTIFIER, "A"], [:WHITESPACE, " "], [:OPERATOR, "="], [:WHITESPACE, " "], [:NUMBER, "1"], 
-[:WHITESPACE, " "], [:OPERATOR, "+"], [:WHITESPACE, " "], [:NUMBER, "2"], [:NEWLINE, "\n"], [:IDENTIFIER, "B"], 
-[:WHITESPACE, " "], [:OPERATOR, "="], [:WHITESPACE, " "], [:NUMBER, "3"], [:WHITESPACE, " "], [:OPERATOR, "-"], 
-[:WHITESPACE, " "], [:NUMBER, "4"], [:NEWLINE, "\n"], [:IDENTIFIER, "C"], [:WHITESPACE, " "], [:OPERATOR, "="], 
-[:WHITESPACE, " "], [:NUMBER, "3"], [:WHITESPACE, " "], [:OPERATOR, "*"], [:WHITESPACE, " "], [:NUMBER, "4"], 
-[:NEWLINE, "\n"], [:IDENTIFIER, "D"], [:WHITESPACE, " "], [:OPERATOR, "="], [:WHITESPACE, " "], [:NUMBER, "3"],
-[:WHITESPACE, " "], [:OPERATOR, "/"], [:WHITESPACE, " "], [:NUMBER, "4"], [:NEWLINE, "\n"], [:IDENTIFIER, "E"],
-[:WHITESPACE, " "], [:OPERATOR, "="], [:WHITESPACE, " "], [:NUMBER, "3"], [:WHITESPACE, " "], [:OPERATOR, "&&"],
-[:WHITESPACE, " "], [:NUMBER, "4"], [:NEWLINE, "\n"], [:IDENTIFIER, "F"], [:WHITESPACE, " "], [:OPERATOR, "="],
-[:WHITESPACE, " "], [:NUMBER, "3"], [:WHITESPACE, " "], [:OPERATOR, "%"], [:WHITESPACE, " "], [:NUMBER, "4"],
-[:NEWLINE, "\n"], [:IDENTIFIER, "G"], [:WHITESPACE, " "], [:OPERATOR, "="], [:WHITESPACE, " "], [:NUMBER, "3"],
-[:WHITESPACE, " "], [:OPERATOR, "<"], [:WHITESPACE, " "], [:NUMBER, "4"], [:NEWLINE, "\n"], [:IDENTIFIER, "H"], 
-[:WHITESPACE, " "], [:OPERATOR, "="], [:WHITESPACE, " "], [:NUMBER, "3"], [:WHITESPACE, " "], [:OPERATOR, ">"], 
-[:WHITESPACE, " "], [:NUMBER, "4"], [:NEWLINE, "\n"], [:IDENTIFIER, "I"], [:WHITESPACE, " "], [:OPERATOR, "="], 
-[:WHITESPACE, " "], [:NUMBER, "3"], [:WHITESPACE, " "], [:OPERATOR, "%"], [:WHITESPACE, " "], [:NUMBER, "4"], 
-[:NEWLINE, "\n"], [:IDENTIFIER, "M"], [:WHITESPACE, " "], [:OPERATOR, "=="], [:WHITESPACE, " "], [:IDENTIFIER, "J"], 
-[:NEWLINE, "\n"], [:IDENTIFIER, "echo"], [:WHITESPACE, " "], [:IDENTIFIER, "A"], [:WHITESPACE, " "], [:OPERATOR, ">"], 
-[:WHITESPACE, " "], [:IDENTIFIER, "B"], [:NEWLINE, "\n"], [false, false]
-]
+                               [:NEWLINE, "\n"], [:IDENTIFIER, "A"],  [:OPERATOR, "="],  [:NUMBER, "1"], 
+                               [:OPERATOR, "+"], [:NUMBER, "2"], [:TERMINATOR , ";"] ,[:NEWLINE, "\n"], [:IDENTIFIER, "B"], 
+                               [:OPERATOR, "="], [:NUMBER, "3"],  [:OPERATOR, "-"], [:NUMBER, "4"],[:TERMINATOR , ";"], 
+                               [:NEWLINE, "\n"], [:IDENTIFIER, "C"],  [:OPERATOR, "="], [:NUMBER, "3"],
+                               [:OPERATOR, "*"], [:NUMBER, "4"], [:TERMINATOR , ";"] ,[:NEWLINE, "\n"], [:IDENTIFIER, "D"],  [:OPERATOR, "="],  [:NUMBER, "3"],
+                               [:OPERATOR, "/"], [:NUMBER, "4"], [:TERMINATOR , ";"] ,[:NEWLINE, "\n"], [:IDENTIFIER, "E"],
+                               [:OPERATOR, "="], [:NUMBER, "3"],  [:OPERATOR, "&&"], [:NUMBER, "4"], [:TERMINATOR , ";"],
+                               [:NEWLINE, "\n"], [:IDENTIFIER, "F"],  [:OPERATOR, "="], [:NUMBER, "3"],
+                               [:OPERATOR, "%"], [:NUMBER, "4"], [:TERMINATOR , ";"] , [:NEWLINE, "\n"], [:IDENTIFIER, "G"], 
+                               [:OPERATOR, "="], [:NUMBER, "3"], [:OPERATOR, "<"],  [:NUMBER, "4"], [:TERMINATOR , ";"],
+                               [:NEWLINE, "\n"], [:IDENTIFIER, "H"], [:OPERATOR, "="],  [:NUMBER, "3"], 
+                               [:OPERATOR, ">"], [:NUMBER, "4"], [:TERMINATOR , ";"] , [:NEWLINE, "\n"], [:IDENTIFIER, "I"],
+                               [:OPERATOR, "="], [:NUMBER, "3"],  [:OPERATOR, "%"],  [:NUMBER, "4"], [:TERMINATOR , ";"] ,
+                               [:NEWLINE, "\n"], [:IDENTIFIER, "M"],  [:OPERATOR, "=="],  [:IDENTIFIER, "J"], [:TERMINATOR , ";"],
+                               [:NEWLINE, "\n"], [:IDENTIFIER, "echo"],  [:IDENTIFIER, "A"],  [:OPERATOR, ">"], 
+                               [:IDENTIFIER, "B"],[:TERMINATOR , ";"], [:NEWLINE, "\n"], [false, false]
+                              ]
                               
   end
   
@@ -62,9 +60,8 @@ echo A > B;
   it "should return an array of tokens for a statement" do
     lexer = lex "alias lsd = 'ls -app'"
     lexer.tokenize.must_equal [
-                               [:ALIAS, "alias"], [:WHITESPACE, " "], [:IDENTIFIER, "lsd"],
-                               [:WHITESPACE, " "], [:OPERATOR, "="], [:WHITESPACE, " "], 
-                               [:STRING, "'ls -app'"], [false, false]
+                               [:ALIAS, "alias"], [:IDENTIFIER, "lsd"],
+                               [:OPERATOR, "="], [:STRING, "'ls -app'"], [false, false]
                               ]
 
   end
