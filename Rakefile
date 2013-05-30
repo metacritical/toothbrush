@@ -10,5 +10,6 @@ task :setup , :arguments  do |taskname , params|
 end
 
 task :compile do |t|
-  system "racc -l -o lib/toothbrush/parser.rb src/parser.y"
+  desc "Compile task for tb_grammar.y in src and output to lib parser.rb"
+  system "racc -l -o lib/toothbrush/parser.rb src/tb_grammar.y"
 end
