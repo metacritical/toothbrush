@@ -29,7 +29,7 @@ module ToothBrush
       when terminator_token
       when string_token
       else
-        error! "Invalid Token : '#{scanner.check /.*/}' -> #{position}(char)"
+        error! "Invalid Token : '#{scanner.check /.+?/}' -> #{position}(char)"
       end
     end
   end

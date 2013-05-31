@@ -22,7 +22,7 @@ module ToothBrush
         index.zero? ? count = each.size : count = count + each.size
         if count >= character
           return index + 1
-        end  
+        end
       end  
     end
   end

@@ -9,7 +9,7 @@ module ToothBrush
     end
 
     def parse_error!(message)
-      raise ParseError , message rescue paint("#{$!.class}\n-> #{message} ::  #{@lexer.position}\n" , :red)
+      raise ParseError , message rescue paint("#{$!.class}\n-> #{message} :: #{@lexer.position - 1}\n" , :red)
     end
   end
 end

@@ -67,6 +67,8 @@ module ToothBrush
         when '-' then parsed_tokens << [:SUBSTRACTION, matched]
         when '*' then parsed_tokens << [:MULTIPLICATION, matched]              
         when '/' then parsed_tokens << [:DIVISION, matched]
+        else
+          parsed_tokens << [:OPERATOR, matched]
         end
       end
     end

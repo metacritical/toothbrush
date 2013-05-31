@@ -1,26 +1,44 @@
 class ToothBrush::Parser
-token IDENTIFIER PARAMETERS STRING WHITESPACE INDENT TERMINATOR NEWLINE NUMBER OPERATOR FUNCTION ALIAS ASSIGNMENT
+token IDENTIFIER PARAMETERS STRING WHITESPACE INDENT 
+toke TERMINATOR NEWLINE NUMBER OPERATOR FUNCTION ALIAS ASSIGNMENT
 token ADDITION SUBSTRACTION MULTIPLICATION DIVISION
   
 rule
         Root : /* Empty String */ #Nothing to do though we might need to take some action eventually for  
-             | ALIAS { p "Found Just Alias : #{val[0]}"}
-             | ALIAS NEWLINE { p "Found Alias Newline : " + val[1]}
-             | ALIAS TERMINATOR {p "Found Alias with Terminator : #{val[0]}  #{val[1]}" }
-             | Declaration { p "Found only declaration : #{val[0]}" }
-             | Terminator
+             | Terminator { parse_error! "Unexpected Token Found '#{val[0]}'" }
+             | Command { paint "Reached Command : #{val[0]}\n" , :cyan }
+             | NEWLINE { paint "Reached NEWLINE : #{val[0]}\n" , :magenta }
              ;
 
-  Terminator : NEWLINE 
-             | TERMINATOR { parse_error! "Unexpected Token Found '#{val[0]}'" }
+  Terminator : TERMINATOR;
+                 
+     Command : Expression { paint "Reached Expression : #{val[0]}\n" , :yellow }
+             | Expression Terminator { paint "Reached Expression Terminator : #{val[0]}\n" , :white }
+             | Expression NEWLINE    { paint "Expression NEWLINE : #{val[0]} | #{val[1].inspect}\n" , :white }
+             | Expression NEWLINE Terminator { paint "Expression NEWLINE Terminator : #{val[0]} | #{val[1].inspect} | #{val[2]}\n" , :red }
              ;
 
-  Arithmetic : NUMBER ADDITION NUMBER { p "Addition in bash : $((#{val[0]} #{val[1]} #{val[2]}))" }
-             | Arithmetic ADDITION NUMBER { p "Addition in bash : $((#{val[0]} #{val[1]} #{val[2]}))" }
+     Literal : NUMBER
+             | IDENTIFIER
+             | STRING
+             ; 
+
+
+  Expression : Alias
+             | Literal
+             | Assignment
              ;
 
- Declaration : IDENTIFIER ASSIGNMENT Arithmetic { p "Found Identifier Operator Expr : #{val[0]} #{val[1]} #{val[2]}" }
+       Alias : ALIAS
+             | ALIAS Assignment
              ;
+
+  Assignment : Expression Addition | Expression ASSIGNMENT Expression { paint "Assignment #{val[0]} | #{val[1]} | #{val[2]}\n" }
+             ;
+
+    Addition : NUMBER ADDITION NUMBER;
+
+
 
 ---- inner
 
