@@ -28,19 +28,19 @@ attr_accessor :result
 ##### State transition tables begin ###
 
 racc_action_table = [
-    13,    13,    14,    14,    24,     5,     3,    15,    15,     5,
-    12,    12,    13,    13,    14,    14,    13,    16,    14,    15,
-    15,    22,    12,    15,    20,    21,     5,    17 ]
+    13,    13,    14,    14,     5,     3,    15,    15,    24,    12,
+    12,    13,    13,    14,    14,    20,    21,    15,    15,    13,
+    12,    14,     5,    17,     5,    15,    16,    22 ]
 
 racc_action_check = [
-     0,    21,     0,    21,    19,     0,     0,     0,    21,    17,
-     0,    21,    20,     7,    20,     7,    24,     1,    24,    20,
-     7,    16,    20,    24,     8,     8,     6,     6 ]
+     0,    21,     0,    21,     0,     0,     0,    21,    19,     0,
+    21,    20,     7,    20,     7,     8,     8,    20,     7,    24,
+    20,    24,     6,     6,    17,    24,     1,    16 ]
 
 racc_action_pointer = [
-    -2,    17,   nil,   nil,   nil,   nil,    19,    11,    11,   nil,
-   nil,   nil,   nil,   nil,   nil,   nil,    21,     2,   nil,    -9,
-    10,    -1,   nil,   nil,    14,   nil,   nil,   nil ]
+    -2,    26,   nil,   nil,   nil,   nil,    16,    10,     3,   nil,
+   nil,   nil,   nil,   nil,   nil,   nil,    27,    18,   nil,    -4,
+     9,    -1,   nil,   nil,    17,   nil,   nil,   nil ]
 
 racc_action_default = [
     -1,   -22,    -2,    -3,    -4,    -5,    -6,   -10,   -11,   -12,
@@ -65,27 +65,27 @@ racc_goto_default = [
 
 racc_reduce_table = [
   0, 0, :racc_error,
-  0, 19, :_reduce_none,
-  1, 19, :_reduce_2,
-  1, 19, :_reduce_3,
-  1, 19, :_reduce_4,
-  1, 20, :_reduce_none,
-  1, 21, :_reduce_6,
-  2, 21, :_reduce_7,
-  2, 21, :_reduce_8,
-  3, 21, :_reduce_9,
+  0, 18, :_reduce_none,
+  1, 18, :_reduce_2,
+  1, 18, :_reduce_3,
+  1, 18, :_reduce_4,
+  1, 19, :_reduce_none,
+  1, 20, :_reduce_6,
+  2, 20, :_reduce_7,
+  2, 20, :_reduce_8,
+  3, 20, :_reduce_9,
+  1, 21, :_reduce_none,
+  1, 21, :_reduce_none,
+  1, 21, :_reduce_none,
+  1, 21, :_reduce_none,
   1, 22, :_reduce_none,
-  1, 22, :_reduce_none,
-  1, 22, :_reduce_none,
-  1, 22, :_reduce_none,
+  4, 22, :_reduce_15,
+  1, 26, :_reduce_none,
   1, 23, :_reduce_none,
-  4, 23, :_reduce_15,
-  1, 27, :_reduce_none,
-  1, 24, :_reduce_none,
-  1, 24, :_reduce_none,
-  1, 24, :_reduce_none,
-  3, 25, :_reduce_20,
-  3, 26, :_reduce_21 ]
+  1, 23, :_reduce_none,
+  1, 23, :_reduce_none,
+  3, 24, :_reduce_20,
+  3, 25, :_reduce_21 ]
 
 racc_reduce_n = 22
 
@@ -97,21 +97,20 @@ racc_token_table = {
   :IDENTIFIER => 2,
   :PARAMETERS => 3,
   :STRING => 4,
-  :WHITESPACE => 5,
-  :INDENT => 6,
-  :TERMINATOR => 7,
-  :NEWLINE => 8,
-  :NUMBER => 9,
-  :OPERATOR => 10,
-  :FUNCTION => 11,
-  :ALIAS => 12,
-  :ASSIGNMENT => 13,
-  :ADDITION => 14,
-  :SUBSTRACTION => 15,
-  :MULTIPLICATION => 16,
-  :DIVISION => 17 }
+  :INDENT => 5,
+  :TERMINATOR => 6,
+  :NEWLINE => 7,
+  :NUMBER => 8,
+  :OPERATOR => 9,
+  :FUNCTION => 10,
+  :ALIAS => 11,
+  :ASSIGNMENT => 12,
+  :ADDITION => 13,
+  :SUBSTRACTION => 14,
+  :MULTIPLICATION => 15,
+  :DIVISION => 16 }
 
-racc_nt_base = 18
+racc_nt_base = 17
 
 racc_use_result_var = true
 
@@ -137,7 +136,6 @@ Racc_token_to_s_table = [
   "IDENTIFIER",
   "PARAMETERS",
   "STRING",
-  "WHITESPACE",
   "INDENT",
   "TERMINATOR",
   "NEWLINE",

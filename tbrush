@@ -17,3 +17,4 @@ require_relative 'loader'
 @parser.parse "A"
 @parser.parse "A = 1 + 2"
 @parser.parse "A = 3 + 4 + 5 + 6;"
+@parser.parse "declare A=123"
