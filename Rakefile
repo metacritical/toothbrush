@@ -11,5 +11,5 @@ end
 
 task :compile do |t|
   desc "Compile task for tb_grammar.y in src and output to lib parser.rb"
-  system "racc -l -o lib/toothbrush/parser.rb src/tb_grammar.y"
+  system "racc -l -o lib/toothbrush/parser.rb src/grammar.y"
 end
