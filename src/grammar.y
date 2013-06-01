@@ -1,42 +1,44 @@
 class ToothBrush::Parser
 token IDENTIFIER PARAMETERS STRING WHITESPACE INDENT 
-toke TERMINATOR NEWLINE NUMBER OPERATOR FUNCTION ALIAS ASSIGNMENT
+token TERMINATOR NEWLINE NUMBER OPERATOR FUNCTION ALIAS ASSIGNMENT
 token ADDITION SUBSTRACTION MULTIPLICATION DIVISION
   
 rule
         Root : /* Empty String */ #Nothing to do though we might need to take some action eventually for  
-             | Terminator { parse_error! "Unexpected Token Found '#{val[0]}'" }
-             | Command { paint "Reached Command : #{val[0]}\n" , :cyan }
-             | NEWLINE { paint "Reached NEWLINE : #{val[0]}\n" , :magenta }
+             | Terminator { parse_error! "Unexpected Token Found '#{val[0]}'\n" }
+             | NEWLINE { paint "1) Reached NEWLINE : #{val[0].inspect}\n" , :magenta }
+             | Command { paint "2) Reached Command : #{val[0]}\n" , :cyan }
              ;
 
   Terminator : TERMINATOR;
                  
-     Command : Expression { paint "Reached Expression : #{val[0]}\n" , :yellow }
-             | Expression Terminator { paint "Reached Expression Terminator : #{val[0]}\n" , :white }
-             | Expression NEWLINE    { paint "Expression NEWLINE : #{val[0]} | #{val[1].inspect}\n" , :white }
-             | Expression NEWLINE Terminator { paint "Expression NEWLINE Terminator : #{val[0]} | #{val[1].inspect} | #{val[2]}\n" , :red }
+     Command : Expression { paint "3) Reached Expression : #{val[0]}\n" , :yellow }
+             | Expression NEWLINE    { paint "4) Expression NEWLINE : #{val[0]} | #{val[1].inspect}\n" , :white} 
+             | Expression Terminator { paint "Reached Expression Terminator : #{val[0]} #{val[1]}\n" , :white }
+             | Expression NEWLINE Terminator { paint "5) Expression NEWLINE Terminator : #{val[0]} | #{val[1].inspect} | #{val[2]}\n", :red }
              ;
 
-     Literal : NUMBER
-             | IDENTIFIER
-             | STRING
-             ; 
-
-
-  Expression : Alias
-             | Literal
+  Expression : Declaration
+             | Literal 
              | Assignment
+             | Addition
+             ;
+
+ Declaration : Alias 
+             | Declaration Literal ASSIGNMENT Literal { paint "6) Declaration : #{val[0]} | #{val[1]} | #{val[2]} | #{val[3]}\n" , :blue }
              ;
 
        Alias : ALIAS
-             | ALIAS Assignment
              ;
 
-  Assignment : Expression Addition | Expression ASSIGNMENT Expression { paint "Assignment #{val[0]} | #{val[1]} | #{val[2]}\n" }
-             ;
+     Literal : IDENTIFIER
+             | STRING
+             | NUMBER
+             ; 
 
-    Addition : NUMBER ADDITION NUMBER;
+   Assignment : Literal ASSIGNMENT Expression { paint "Assignment #{val[0]} | #{val[1]} | #{val[2]}\n" }
+                 
+    Addition : Literal ADDITION Expression { paint "Addition #{val[0]} | #{val[1]} | #{val[2]}\n" };
 
 
 
