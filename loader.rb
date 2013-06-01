@@ -4,6 +4,7 @@ require 'bundler/setup'
 require 'strscan'
 require 'tools/color_printer'
 require 'toothbrush'
+require 'pp'
 
 #Include Toplevel ToothBrush Module
 include ToothBrush
