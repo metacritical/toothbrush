@@ -1,8 +1,9 @@
 module ToothBrush
   module Tokens
-    KEYWORDS = %w(if alias do else while when then case)
-    RESERVED_WORDS = %w(function)
-    
+    KEYWORDS = %w(if alias do else while when then case builtin)
+    RESERVED_WORDS = %w(function declare readonly)
+        
+    CONSTANT = %r|^\A\w+|
     IDENTIFIER = %r|\w+|
     FUNCTION = %r|\w+\:|
     INDENT = %r|\s+|
@@ -17,9 +18,14 @@ module ToothBrush
       parsed_tokens << [:FUNCTION , matched] if match(FUNCTION)
     end
 
+    def constant_token
+      parsed_tokens << [:CONSTANT , matched] if match(CONSTANT)
+    end
+
+
     def identifier_token
       if match(IDENTIFIER) then 
-        syntax_error! "Syntax Error : Invalid usage of reserved keywords" if RESERVED_WORDS.include?(matched) 
+        syntax_error! "Syntax Error : Invalid usage of reserved keywords" if RESERVED_WORDS.include?(matched)
         if KEYWORDS.include?(matched)
           parsed_tokens << [matched.upcase.intern, matched]
         else
@@ -38,7 +44,6 @@ module ToothBrush
     
     def whitespace_token
       true if match(WHITESPACE)
-      #parsed_tokens << [:WHITESPACE, matched] if match(WHITESPACE)
     end
     
     def indent_token

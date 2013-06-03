@@ -1,5 +1,5 @@
 class ToothBrush::Parser
-token IDENTIFIER PARAMETERS STRING INDENT 
+token IDENTIFIER PARAMETERS STRING INDENT DEDENT CONSTANT
 token TERMINATOR NEWLINE NUMBER OPERATOR FUNCTION ALIAS ASSIGNMENT
 token ADDITION SUBSTRACTION MULTIPLICATION DIVISION
   
@@ -36,11 +36,9 @@ rule
              | NUMBER
              ; 
 
-   Assignment : Literal ASSIGNMENT Expression { paint "Assignment #{val[0]} | #{val[1]} | #{val[2]}\n" }
+  Assignment : Literal ASSIGNMENT Expression { paint "Assignment #{val[0]} | #{val[1]} | #{val[2]}\n" };
                  
     Addition : Literal ADDITION Expression { paint "Addition #{val[0]} | #{val[1]} | #{val[2]}\n" };
-
-
 
 ---- inner
 
