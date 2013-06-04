@@ -35,22 +35,24 @@ M == J;
 echo A > B;
 }
     
-    lexer.tokenize.must_equal [
-      [:NEWLINE, "\n"], [:IDENTIFIER, "A"], [:ASSIGNMENT, "="], [:NUMBER, "1"], [:ADDITION, "+"], 
-      [:NUMBER, "2"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "B"], [:ASSIGNMENT, "="], 
-      [:NUMBER, "3"], [:SUBSTRACTION, "-"], [:NUMBER, "4"], [:TERMINATOR, ";"], [:NEWLINE, "\n"],
-      [:IDENTIFIER, "C"], [:ASSIGNMENT, "="], [:NUMBER, "3"], [:MULTIPLICATION, "*"], [:NUMBER, "4"],
-      [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "D"], [:ASSIGNMENT, "="], [:NUMBER, "3"], 
-      [:DIVISION, "/"], [:NUMBER, "4"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "E"], 
-      [:ASSIGNMENT, "="], [:NUMBER, "3"], [:NUMBER, "4"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], 
-      [:IDENTIFIER, "F"], [:ASSIGNMENT, "="], [:NUMBER, "3"], [:NUMBER, "4"], [:TERMINATOR, ";"], 
-      [:NEWLINE, "\n"], [:IDENTIFIER, "G"], [:ASSIGNMENT, "="], [:NUMBER, "3"], [:NUMBER, "4"], 
-      [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "H"], [:ASSIGNMENT, "="], [:NUMBER, "3"],
-      [:NUMBER, "4"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "I"], [:ASSIGNMENT, "="], 
-      [:NUMBER, "3"], [:NUMBER, "4"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "M"], 
-      [:IDENTIFIER, "J"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "echo"], 
-      [:IDENTIFIER, "A"], [:IDENTIFIER, "B"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], [false, false]
-    ]
+    lexer.tokenize.must_equal([
+                              [:NEWLINE, "\n"], [:IDENTIFIER, "A"], [:ASSIGNMENT, "="], [:NUMBER, "1"], [:ADDITION, "+"], 
+                              [:NUMBER, "2"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "B"], [:ASSIGNMENT, "="], 
+                              [:NUMBER, "3"], [:SUBSTRACTION, "-"], [:NUMBER, "4"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], 
+                              [:IDENTIFIER, "C"], [:ASSIGNMENT, "="], [:NUMBER, "3"], [:MULTIPLICATION, "*"], [:NUMBER, "4"], 
+                              [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "D"], [:ASSIGNMENT, "="], [:NUMBER, "3"], 
+                              [:DIVISION, "/"], [:NUMBER, "4"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "E"], 
+                              [:ASSIGNMENT, "="], [:NUMBER, "3"], [:OPERATOR, "&&"], [:NUMBER, "4"], [:TERMINATOR, ";"], 
+                              [:NEWLINE, "\n"], [:IDENTIFIER, "F"], [:ASSIGNMENT, "="], [:NUMBER, "3"], [:OPERATOR, "%"], 
+                              [:NUMBER, "4"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "G"], [:ASSIGNMENT, "="], 
+                              [:NUMBER, "3"], [:OPERATOR, "<"], [:NUMBER, "4"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], 
+                              [:IDENTIFIER, "H"], [:ASSIGNMENT, "="], [:NUMBER, "3"], [:OPERATOR, ">"], [:NUMBER, "4"], 
+                              [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "I"], [:ASSIGNMENT, "="], [:NUMBER, "3"], 
+                              [:OPERATOR, "%"], [:NUMBER, "4"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "M"], 
+                              [:OPERATOR, "=="], [:IDENTIFIER, "J"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "echo"], 
+                              [:IDENTIFIER, "A"], [:OPERATOR, ">"], [:IDENTIFIER, "B"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], 
+                              [false, false]
+                             ])
   end
   
 

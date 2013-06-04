@@ -1,20 +1,80 @@
 #!/usr/bin/env ruby
 
+require 'optparse'
 require 'fileutils'
 require_relative 'loader'
 
-@parser = Parser.new
 
+class ToothBrush::CLI
+  def initialize
+    @parser = Parser.new
+    command_options
+    return file if @options[:file]
+    return repl if @options[:interactive]
+    exit
+  end
 
-@parser.parse ""
-@parser.parse "\n"
-@parser.parse "alias"
-@parser.parse "alias;"
-@parser.parse "alias\n"
-@parser.parse "alias\n;"
-@parser.parse "ls;"
-@parser.parse "alias lsd = 'ls -a';"
-@parser.parse "a"
-@parser.parse "a = 1 + 2"
-@parser.parse "a = 3 + 4 + 5 + 6;"
-@parser.parse "A=123"
+  def command_options
+    @options = {}
+    @opt_parser = OptionParser.new do |opt|      
+      opt.set_banner "ToothBrush (Lets Clean Up your Bash)"
+      opt.on "-f" , "--file" , "Transpile a toothbrush file" do
+        @options[:file] = true
+      end
+
+      opt.on "-i","--interactive", "Toothbrush Interactive" do
+        @options[:interactive] = true
+      end
+
+      opt.on_tail "-v", "--version" , "Toothbrush Version" do
+        paint "Toothbrush Version : #{ToothBrush::Version::STRING}\n", :blue
+      end
+      
+      opt.on_tail "-h", "--help" , "Display This Help Message" do
+        paint opt.banner , :red
+        puts "\n#{DATA.read}\n#{opt.summarize.join}\n"
+        exit
+      end
+    end
+    kickstart
+  end
+
+  def kickstart
+    begin
+      @opt_parser.parse!(ARGV)
+    rescue OptionParser::InvalidOption => e
+      paint "#{e.message}\n"
+      exit
+    end
+    @sources = ARGV
+  end
+
+  def repl
+    paint("ToothBrush Repl\n", :cyan)
+    paint("(quit) to exit\n" , :white)
+    loop do
+      lambda do
+        print "[TB]>> "
+        input = gets
+        input =~ /quit/ ? exit : puts( "=> %s" % @parser.parse(input , true)) rescue nil
+      end.call
+    end
+  end
+
+  def file
+    file = File.read( @sources.join )
+    puts file
+    @parser = Parser.new
+    @parser.parse file , true
+  end
+
+end
+
+ToothBrush::CLI.new
+
+__END__
+
+It Compiles toothbrush syntax to bash script
+
+Usage : 
+  tbrush path/to/script.tb

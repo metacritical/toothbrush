@@ -23,6 +23,7 @@ module ToothBrush
       when number_token
       when parameters_token
       when operator_token
+      when constant_token
       when identifier_token
       when whitespace_token
       when indent_token

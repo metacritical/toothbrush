@@ -3,7 +3,7 @@ module ToothBrush
     KEYWORDS = %w(if alias do else while when then case builtin)
     RESERVED_WORDS = %w(function declare readonly)
         
-    CONSTANT = %r|^\A\w+|
+    CONSTANT = %r|\A[A-Z]+|
     IDENTIFIER = %r|\w+|
     FUNCTION = %r|\w+\:|
     INDENT = %r|\s+|
@@ -60,7 +60,11 @@ module ToothBrush
         return parsed_tokens << [:TERMINATOR , slice_result] if slice_result =~ TERMINATOR
         return parsed_tokens << [:INDENT, slice_result] if slice_result =~ WHITESPACE
       else
-        parsed_tokens << [:NEWLINE, "\n"] unless previous_token == :NEWLINE
+        unless (previous_token == :NEWLINE or previous_token == :TERMINATOR)
+           parsed_tokens << [:TERMINATOR, ";"] 
+        else
+          true
+        end
       end
     end
 

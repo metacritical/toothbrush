@@ -5,26 +5,24 @@ token ADDITION SUBSTRACTION MULTIPLICATION DIVISION
   
 rule
         Root : /* Empty String */ #Nothing to do though we might need to take some action eventually for  
-             | Terminator { parse_error! "Unexpected Token Found '#{val[0]}'\n" }
-             | NEWLINE { paint "1) Reached NEWLINE : #{val[0].inspect}\n" , :magenta }
+             | Terminator { paint "0) Terminator or Newline Found '#{val[0]}'\n" }
              | Command { paint "2) Reached Command : #{val[0]}\n" , :cyan }
              ;
 
-  Terminator : TERMINATOR;
+  Terminator : TERMINATOR 
+             | NEWLINE 
+             ;
                  
      Command : Expression { paint "3) Reached Expression : #{val[0]}\n" , :yellow }
-             | Expression NEWLINE    { paint "4) Expression NEWLINE : #{val[0]} | #{val[1].inspect}\n" , :white} 
-             | Expression Terminator { paint "Reached Expression Terminator : #{val[0]} #{val[1]}\n" , :white }
-             | Expression NEWLINE Terminator { paint "5) Expression NEWLINE Terminator : #{val[0]} | #{val[1].inspect} | #{val[2]}\n", :red }
+             | Expression Terminator { paint "5) Expression Terminator : #{val[0]} | #{val[1].inspect} | #{val[2]}\n", :red }
              ;
 
   Expression : Declaration
-             | Literal 
              | Assignment
              | Addition
              ;
 
- Declaration : Alias 
+ Declaration : Alias
              | Declaration Literal ASSIGNMENT Literal { paint "6) Declaration : #{val[0]} | #{val[1]} | #{val[2]} | #{val[3]}\n" , :blue }
              ;
 
@@ -34,6 +32,7 @@ rule
      Literal : IDENTIFIER
              | STRING
              | NUMBER
+             | CONSTANT
              ; 
 
   Assignment : Literal ASSIGNMENT Expression { paint "Assignment #{val[0]} | #{val[1]} | #{val[2]}\n" };
@@ -49,9 +48,10 @@ attr_accessor :result
     @lexer.tokenize #Kickstart lexer
   end
 
-  def parse(code)
+  def parse(code,verbose=false)
     lex(code)
     @result
+    puts @lexer.inspect if verbose
     do_parse
   end
 
