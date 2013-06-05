@@ -1,9 +1,7 @@
 #!/usr/bin/env ruby
-
 require 'optparse'
 require 'fileutils'
 require_relative 'loader'
-
 
 class ToothBrush::CLI
   def initialize
@@ -24,6 +22,10 @@ class ToothBrush::CLI
 
       opt.on "-i","--interactive", "Toothbrush Interactive" do
         @options[:interactive] = true
+      end
+
+      opt.on "-t","--token", "Print Tokens" do
+        @options[:tokens] = true
       end
 
       opt.on_tail "-v", "--version" , "Toothbrush Version" do
@@ -50,22 +52,26 @@ class ToothBrush::CLI
   end
 
   def repl
+    prelude
+     loop do
+       lambda do
+         print "[TB]>> "
+         input = gets
+         input =~ /quit/ ? exit : puts( "=> %s" % @parser.parse(input , @options[:tokens])) rescue nil
+       end.call
+     end
+   end
+
+   def file
+     file = File.read( @sources.join )
+     puts file
+     @parser = Parser.new
+     @parser.parse(file , @options[:tokens])
+   end
+
+   def prelude
     paint("ToothBrush Repl\n", :cyan)
     paint("(quit) to exit\n" , :white)
-    loop do
-      lambda do
-        print "[TB]>> "
-        input = gets
-        input =~ /quit/ ? exit : puts( "=> %s" % @parser.parse(input , true)) rescue nil
-      end.call
-    end
-  end
-
-  def file
-    file = File.read( @sources.join )
-    puts file
-    @parser = Parser.new
-    @parser.parse file , true
   end
 
 end
