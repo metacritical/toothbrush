@@ -20,6 +20,7 @@ rule
   Expression : Declaration
              | Assignment
              | Addition
+             | Literal
              ;
 
  Declaration : Alias
@@ -34,6 +35,7 @@ rule
              | NUMBER
              | CONSTANT
              ; 
+
 
   Assignment : Literal ASSIGNMENT Expression { paint "Assignment #{val[0]} | #{val[1]} | #{val[2]}\n" };
                  
@@ -51,7 +53,7 @@ attr_accessor :result
   def parse(code,verbose=false)
     lex(code)
     @result
-    puts @lexer.inspect if verbose
+    code_inspect @lexer if verbose
     do_parse
   end
 
