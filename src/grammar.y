@@ -2,7 +2,7 @@ class ToothBrush::Parser
 token IDENTIFIER PARAMETERS STRING INDENT DEDENT CONSTANT
 token TERMINATOR NEWLINE NUMBER OPERATOR FUNCTION ALIAS ASSIGNMENT
 token ADDITION SUBSTRACTION MULTIPLICATION DIVISION
-  
+
 rule
         Root : /* Empty String */ #Nothing to do though we might need to take some action eventually for  
              | Terminator { paint "0) Terminator or Newline Found '#{val[0]}'\n" }
