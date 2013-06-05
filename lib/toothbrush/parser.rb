@@ -19,7 +19,7 @@ attr_accessor :result
   def parse(code,verbose=false)
     lex(code)
     @result
-    puts @lexer.inspect if verbose
+    code_inspect @lexer if verbose
     do_parse
   end
 
@@ -29,26 +29,26 @@ attr_accessor :result
 ##### State transition tables begin ###
 
 racc_action_table = [
-    12,    23,    13,    20,    21,    15,     4,     5,    14,    17,
-    12,    11,    13,    22,    12,    15,    13,   nil,    14,    15,
-   nil,    11,    14,   nil,    12,    11,    13,   nil,    12,    15,
-    13,   nil,    14,    15,     4,     5,    14 ]
+    13,    23,    14,    20,    21,    16,     4,     5,    15,    17,
+    13,    12,    14,    22,    13,    16,    14,   nil,    15,    16,
+   nil,    12,    15,   nil,    13,    12,    14,   nil,    13,    16,
+    14,   nil,    15,    16,     4,     5,    15 ]
 
 racc_action_check = [
-     0,    19,     0,    16,    16,     0,     0,     0,     0,     1,
+     0,    19,     0,    10,    10,     0,     0,     0,     0,     1,
     21,     0,    21,    17,    20,    21,    20,   nil,    21,    20,
    nil,    21,    20,   nil,     7,    20,     7,   nil,    23,     7,
     23,   nil,     7,    23,     6,     6,    23 ]
 
 racc_action_pointer = [
     -2,     9,   nil,   nil,   nil,   nil,    26,    22,   nil,   nil,
-   nil,   nil,   nil,   nil,   nil,   nil,   -11,    13,   nil,   -13,
+   -11,   nil,   nil,   nil,   nil,   nil,   nil,    13,   nil,   -13,
     12,     8,   nil,    26,   nil,   nil,   nil ]
 
 racc_action_default = [
-    -1,   -20,    -2,    -3,    -4,    -5,    -6,    -8,    -9,   -10,
-   -11,   -13,   -14,   -15,   -16,   -17,   -20,   -20,    -7,   -20,
-   -20,   -20,    27,   -20,   -18,   -19,   -12 ]
+    -1,   -21,    -2,    -3,    -4,    -5,    -6,    -8,    -9,   -10,
+   -11,   -12,   -14,   -15,   -16,   -17,   -18,   -21,    -7,   -21,
+   -21,   -21,    27,   -21,   -19,   -20,   -13 ]
 
 racc_goto_table = [
      6,    19,     2,     3,     1,   nil,   nil,   nil,    18,   nil,
@@ -56,15 +56,15 @@ racc_goto_table = [
     24,    25 ]
 
 racc_goto_check = [
-     4,     9,     2,     3,     1,   nil,   nil,   nil,     2,   nil,
-   nil,   nil,   nil,   nil,   nil,   nil,   nil,     9,   nil,   nil,
+     4,     8,     2,     3,     1,   nil,   nil,   nil,     2,   nil,
+   nil,   nil,   nil,   nil,   nil,   nil,   nil,     8,   nil,   nil,
      4,     4 ]
 
 racc_goto_pointer = [
-   nil,     4,     2,     3,     0,   nil,   nil,   nil,   nil,    -6 ]
+   nil,     4,     2,     3,     0,   nil,   nil,   nil,    -6,   nil ]
 
 racc_goto_default = [
-   nil,   nil,   nil,   nil,   nil,     7,     8,     9,    10,    16 ]
+   nil,   nil,   nil,   nil,   nil,     7,     8,     9,    10,    11 ]
 
 racc_reduce_table = [
   0, 0, :racc_error,
@@ -78,17 +78,18 @@ racc_reduce_table = [
   1, 23, :_reduce_none,
   1, 23, :_reduce_none,
   1, 23, :_reduce_none,
+  1, 23, :_reduce_none,
   1, 24, :_reduce_none,
-  4, 24, :_reduce_12,
+  4, 24, :_reduce_13,
+  1, 28, :_reduce_none,
   1, 27, :_reduce_none,
-  1, 28, :_reduce_none,
-  1, 28, :_reduce_none,
-  1, 28, :_reduce_none,
-  1, 28, :_reduce_none,
-  3, 25, :_reduce_18,
-  3, 26, :_reduce_19 ]
+  1, 27, :_reduce_none,
+  1, 27, :_reduce_none,
+  1, 27, :_reduce_none,
+  3, 25, :_reduce_19,
+  3, 26, :_reduce_20 ]
 
-racc_reduce_n = 20
+racc_reduce_n = 21
 
 racc_shift_n = 27
 
@@ -161,8 +162,8 @@ Racc_token_to_s_table = [
   "Declaration",
   "Assignment",
   "Addition",
-  "Alias",
-  "Literal" ]
+  "Literal",
+  "Alias" ]
 
 Racc_debug_parser = false
 
@@ -204,12 +205,12 @@ end
 
 # reduce 11 omitted
 
-def _reduce_12(val, _values, result)
+# reduce 12 omitted
+
+def _reduce_13(val, _values, result)
  paint "6) Declaration : #{val[0]} | #{val[1]} | #{val[2]} | #{val[3]}\n" , :blue 
     result
 end
-
-# reduce 13 omitted
 
 # reduce 14 omitted
 
@@ -219,12 +220,14 @@ end
 
 # reduce 17 omitted
 
-def _reduce_18(val, _values, result)
+# reduce 18 omitted
+
+def _reduce_19(val, _values, result)
  paint "Assignment #{val[0]} | #{val[1]} | #{val[2]}\n" 
     result
 end
 
-def _reduce_19(val, _values, result)
+def _reduce_20(val, _values, result)
  paint "Addition #{val[0]} | #{val[1]} | #{val[2]}\n" 
     result
 end
