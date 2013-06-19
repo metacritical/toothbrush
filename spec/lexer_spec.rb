@@ -36,23 +36,20 @@ echo A > B;
 }
     
     lexer.tokenize.must_equal([
-                              [:NEWLINE, "\n"], [:IDENTIFIER, "A"], [:ASSIGNMENT, "="], [:NUMBER, "1"], [:ADDITION, "+"], 
-                              [:NUMBER, "2"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "B"], [:ASSIGNMENT, "="], 
-                              [:NUMBER, "3"], [:SUBSTRACTION, "-"], [:NUMBER, "4"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], 
-                              [:IDENTIFIER, "C"], [:ASSIGNMENT, "="], [:NUMBER, "3"], [:MULTIPLICATION, "*"], [:NUMBER, "4"], 
-                              [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "D"], [:ASSIGNMENT, "="], [:NUMBER, "3"], 
-                              [:DIVISION, "/"], [:NUMBER, "4"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "E"], 
-                              [:ASSIGNMENT, "="], [:NUMBER, "3"], [:OPERATOR, "&&"], [:NUMBER, "4"], [:TERMINATOR, ";"], 
-                              [:NEWLINE, "\n"], [:IDENTIFIER, "F"], [:ASSIGNMENT, "="], [:NUMBER, "3"], [:OPERATOR, "%"], 
-                              [:NUMBER, "4"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "G"], [:ASSIGNMENT, "="], 
-                              [:NUMBER, "3"], [:OPERATOR, "<"], [:NUMBER, "4"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], 
-                              [:IDENTIFIER, "H"], [:ASSIGNMENT, "="], [:NUMBER, "3"], [:OPERATOR, ">"], [:NUMBER, "4"], 
-                              [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "I"], [:ASSIGNMENT, "="], [:NUMBER, "3"], 
-                              [:OPERATOR, "%"], [:NUMBER, "4"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "M"], 
-                              [:OPERATOR, "=="], [:IDENTIFIER, "J"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], [:IDENTIFIER, "echo"], 
-                              [:IDENTIFIER, "A"], [:OPERATOR, ">"], [:IDENTIFIER, "B"], [:TERMINATOR, ";"], [:NEWLINE, "\n"], 
-                              [false, false]
-                             ])
+                               [:CONSTANT, "A"], [:ASSIGNMENT, "="], [:NUMBER, "1"], [:ADDITION, "+"], [:NUMBER, "2"], 
+                               [:TERMINATOR, ";"], [:CONSTANT, "B"], [:ASSIGNMENT, "="], [:NUMBER, "3"], [:SUBSTRACTION, "-"], 
+                               [:NUMBER, "4"], [:TERMINATOR, ";"], [:CONSTANT, "C"], [:ASSIGNMENT, "="], [:NUMBER, "3"], 
+                               [:MULTIPLICATION, "*"], [:NUMBER, "4"], [:TERMINATOR, ";"], [:CONSTANT, "D"], [:ASSIGNMENT, "="], 
+                               [:NUMBER, "3"], [:DIVISION, "/"], [:NUMBER, "4"], [:TERMINATOR, ";"], [:CONSTANT, "E"], 
+                               [:ASSIGNMENT, "="], [:NUMBER, "3"], [:OPERATOR, "&&"], [:NUMBER, "4"], [:TERMINATOR, ";"], 
+                               [:CONSTANT, "F"], [:ASSIGNMENT, "="], [:NUMBER, "3"], [:OPERATOR, "%"], [:NUMBER, "4"], 
+                               [:TERMINATOR, ";"], [:CONSTANT, "G"], [:ASSIGNMENT, "="], [:NUMBER, "3"], [:OPERATOR, "<"], 
+                               [:NUMBER, "4"], [:TERMINATOR, ";"], [:CONSTANT, "H"], [:ASSIGNMENT, "="], [:NUMBER, "3"], 
+                               [:OPERATOR, ">"], [:NUMBER, "4"], [:TERMINATOR, ";"], [:CONSTANT, "I"], [:ASSIGNMENT, "="], 
+                               [:NUMBER, "3"], [:OPERATOR, "%"], [:NUMBER, "4"], [:TERMINATOR, ";"], [:CONSTANT, "M"], 
+                               [:OPERATOR, "=="], [:CONSTANT, "J"], [:TERMINATOR, ";"], [:IDENTIFIER, "echo"], [:CONSTANT, "A"], 
+                               [:OPERATOR, ">"], [:CONSTANT, "B"], [:TERMINATOR, ";"], [false, false]
+                              ])
   end
   
 
@@ -86,5 +83,4 @@ CODE
     lexer.tokenize
     lexer.next_token.must_equal [:ALIAS, "alias"]
   end
-
 end
