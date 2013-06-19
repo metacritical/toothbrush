@@ -22,7 +22,6 @@ module ToothBrush
       parsed_tokens << [:CONSTANT , matched] if match(CONSTANT)
     end
 
-
     def identifier_token
       if match(IDENTIFIER) then 
         syntax_error! "Syntax Error : Invalid usage of reserved keywords" if RESERVED_WORDS.include?(matched)
@@ -93,6 +92,5 @@ module ToothBrush
     def next_token
       parsed_tokens.shift unless parsed_tokens.empty?
     end
-
   end
 end
