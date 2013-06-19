@@ -3,7 +3,7 @@ module ToothBrush
     attr_reader :parsed_tokens , :scanner , :code
     
     def initialize(input)
-      @code = input
+      @code = input.lstrip!
       @scanner = StringScanner.new input
       @parsed_tokens = []
     end
