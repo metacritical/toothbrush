@@ -36,5 +36,5 @@ task :debug_parser
 desc "Test Toothbrush Parser"
 task :parser
 
-desc "Run test Verbose Test aguments : verbose"
+desc "Run test (arguments : verbose) for lexer tokens as output"
 task :test , [:arguments]
