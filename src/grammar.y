@@ -7,7 +7,6 @@ rule
         Root : /* Empty String */ { paint "| Empty String |" , :white}
              | Terminator { paint "0) Terminator or Newline Found '#{val[0]}'\n" }
              | Command  { paint "1) Reached Command : #{val[0]}\n" , :cyan }
-             | Command Terminator { paint "2) Expression Terminator : #{val[0]} | #{val[1].inspect} | #{val[2]}\n", :red }
              ;
 
   Terminator : TERMINATOR 
@@ -15,12 +14,15 @@ rule
              ;
                  
      Command : Expression { paint "3) Reached Expression : #{val[0]}\n" , :yellow }
+             | Command Terminator Expression
+             | Command Terminator { paint "2) Expression Terminator : #{val[0]} | #{val[1].inspect} | #{val[2]}\n", :red }
              ;
 
   Expression : Declaration
              | Assignment
              | Addition
              | Literal
+             | Code
              ;
 
  Declaration : Alias
@@ -35,6 +37,17 @@ rule
              | NUMBER
              | CONSTANT
              ; 
+
+        Code : Func Block
+             ;
+
+        Func : FUNCTION
+             ;
+
+       Block : INDENT Command DEDENT
+             ;
+
+
 
 
   Assignment : Literal ASSIGNMENT Expression { paint "Assignment #{val[0]} | #{val[1]} | #{val[2]}\n" };
