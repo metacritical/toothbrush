@@ -29,69 +29,82 @@ attr_accessor :result
 ##### State transition tables begin ###
 
 racc_action_table = [
-    13,    23,    14,    20,    21,    16,     4,     5,    15,    17,
-    13,    12,    14,    22,    13,    16,    14,   nil,    15,    16,
-   nil,    12,    15,   nil,    13,    12,    14,   nil,    13,    16,
-    14,   nil,    15,    16,     4,     5,    15 ]
+    14,    34,    15,     4,     5,    17,     4,     5,    16,    20,
+    19,    13,    14,    29,    15,    27,    14,    17,    15,    26,
+    16,    17,    19,    13,    16,   nil,    19,    13,    14,   nil,
+    15,   nil,    14,    17,    15,   nil,    16,    17,    19,    13,
+    16,   nil,    19,    13,    14,    14,    15,    15,   nil,    17,
+    17,   nil,    16,    16,    23,    24,     4,     5 ]
 
 racc_action_check = [
-     0,    19,     0,    10,    10,     0,     0,     0,     0,     1,
-    21,     0,    21,    17,    20,    21,    20,   nil,    21,    20,
-   nil,    21,    20,   nil,     7,    20,     7,   nil,    23,     7,
-    23,   nil,     7,    23,     6,     6,    23 ]
+     0,    32,     0,    32,    32,     0,     0,     0,     0,     1,
+     0,     0,    26,    22,    26,    20,    24,    26,    24,    18,
+    26,    24,    26,    26,    24,   nil,    24,    24,    23,   nil,
+    23,   nil,    21,    23,    21,   nil,    23,    21,    23,    23,
+    21,   nil,    21,    21,     7,    29,     7,    29,   nil,     7,
+    29,   nil,     7,    29,    10,    10,     3,     3 ]
 
 racc_action_pointer = [
-    -2,     9,   nil,   nil,   nil,   nil,    26,    22,   nil,   nil,
-   -11,   nil,   nil,   nil,   nil,   nil,   nil,    13,   nil,   -13,
-    12,     8,   nil,    26,   nil,   nil,   nil ]
+    -2,     9,   nil,    48,   nil,   nil,   nil,    42,   nil,   nil,
+    40,   nil,   nil,   nil,   nil,   nil,   nil,   nil,    14,   nil,
+    15,    30,    -1,    26,    14,   nil,    10,   nil,   nil,    43,
+   nil,   nil,    -5,   nil,   nil ]
 
 racc_action_default = [
-    -1,   -21,    -2,    -3,    -4,    -5,    -6,    -8,    -9,   -10,
-   -11,   -12,   -14,   -15,   -16,   -17,   -18,   -21,    -7,   -21,
-   -21,   -21,    27,   -21,   -19,   -20,   -13 ]
+    -1,   -26,    -2,    -3,    -4,    -5,    -6,    -9,   -10,   -11,
+   -12,   -13,   -14,   -16,   -17,   -18,   -19,   -20,   -26,   -22,
+   -26,    -8,   -26,   -26,   -26,   -21,   -26,    35,    -7,   -26,
+   -24,   -25,   -26,   -15,   -23 ]
 
 racc_goto_table = [
-     6,    19,     2,     3,     1,   nil,   nil,   nil,    18,   nil,
-   nil,   nil,   nil,   nil,   nil,   nil,   nil,    26,   nil,   nil,
-    24,    25 ]
+     3,    22,    28,     1,    30,    31,     2,    25,   nil,   nil,
+   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,
+   nil,   nil,   nil,    33,   nil,   nil,    32 ]
 
 racc_goto_check = [
-     4,     8,     2,     3,     1,   nil,   nil,   nil,     2,   nil,
-   nil,   nil,   nil,   nil,   nil,   nil,   nil,     8,   nil,   nil,
-     4,     4 ]
+     3,     8,     4,     1,     4,     4,     2,    12,   nil,   nil,
+   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,
+   nil,   nil,   nil,     8,   nil,   nil,     3 ]
 
 racc_goto_pointer = [
-   nil,     4,     2,     3,     0,   nil,   nil,   nil,    -6,   nil ]
+   nil,     3,     6,     0,   -19,   nil,   nil,   nil,    -6,   nil,
+   nil,   nil,   -11 ]
 
 racc_goto_default = [
-   nil,   nil,   nil,   nil,   nil,     7,     8,     9,    10,    11 ]
+   nil,   nil,    21,   nil,     6,     7,     8,     9,    10,    11,
+    12,    18,   nil ]
 
 racc_reduce_table = [
   0, 0, :racc_error,
-  0, 20, :_reduce_none,
+  0, 20, :_reduce_1,
   1, 20, :_reduce_2,
   1, 20, :_reduce_3,
   1, 21, :_reduce_none,
   1, 21, :_reduce_none,
   1, 22, :_reduce_6,
-  2, 22, :_reduce_7,
+  3, 22, :_reduce_none,
+  2, 22, :_reduce_8,
+  1, 23, :_reduce_none,
   1, 23, :_reduce_none,
   1, 23, :_reduce_none,
   1, 23, :_reduce_none,
   1, 23, :_reduce_none,
   1, 24, :_reduce_none,
-  4, 24, :_reduce_13,
-  1, 28, :_reduce_none,
+  4, 24, :_reduce_15,
+  1, 29, :_reduce_none,
   1, 27, :_reduce_none,
   1, 27, :_reduce_none,
   1, 27, :_reduce_none,
   1, 27, :_reduce_none,
-  3, 25, :_reduce_19,
-  3, 26, :_reduce_20 ]
+  2, 28, :_reduce_none,
+  1, 30, :_reduce_none,
+  3, 31, :_reduce_none,
+  3, 25, :_reduce_24,
+  3, 26, :_reduce_25 ]
 
-racc_reduce_n = 21
+racc_reduce_n = 26
 
-racc_shift_n = 27
+racc_shift_n = 35
 
 racc_token_table = {
   false => 0,
@@ -163,15 +176,21 @@ Racc_token_to_s_table = [
   "Assignment",
   "Addition",
   "Literal",
-  "Alias" ]
+  "Code",
+  "Alias",
+  "Func",
+  "Block" ]
 
-Racc_debug_parser = true
+Racc_debug_parser = false
 
 ##### State transition tables end #####
 
 # reduce 0 omitted
 
-# reduce 1 omitted
+def _reduce_1(val, _values, result)
+ paint "| Empty String |" , :white
+    result
+end
 
 def _reduce_2(val, _values, result)
  paint "0) Terminator or Newline Found '#{val[0]}'\n" 
@@ -179,7 +198,7 @@ def _reduce_2(val, _values, result)
 end
 
 def _reduce_3(val, _values, result)
- paint "2) Reached Command : #{val[0]}\n" , :cyan 
+ paint "1) Reached Command : #{val[0]}\n" , :cyan 
     result
 end
 
@@ -192,12 +211,12 @@ def _reduce_6(val, _values, result)
     result
 end
 
-def _reduce_7(val, _values, result)
- paint "5) Expression Terminator : #{val[0]} | #{val[1].inspect} | #{val[2]}\n", :red 
+# reduce 7 omitted
+
+def _reduce_8(val, _values, result)
+ paint "2) Expression Terminator : #{val[0]} | #{val[1].inspect} | #{val[2]}\n", :red 
     result
 end
-
-# reduce 8 omitted
 
 # reduce 9 omitted
 
@@ -207,14 +226,14 @@ end
 
 # reduce 12 omitted
 
-def _reduce_13(val, _values, result)
- paint "6) Declaration : #{val[0]} | #{val[1]} | #{val[2]} | #{val[3]}\n" , :blue 
-    result
-end
+# reduce 13 omitted
 
 # reduce 14 omitted
 
-# reduce 15 omitted
+def _reduce_15(val, _values, result)
+ paint "4) Declaration : #{val[0]} | #{val[1]} | #{val[2]} | #{val[3]}\n" , :blue 
+    result
+end
 
 # reduce 16 omitted
 
@@ -222,12 +241,22 @@ end
 
 # reduce 18 omitted
 
-def _reduce_19(val, _values, result)
+# reduce 19 omitted
+
+# reduce 20 omitted
+
+# reduce 21 omitted
+
+# reduce 22 omitted
+
+# reduce 23 omitted
+
+def _reduce_24(val, _values, result)
  paint "Assignment #{val[0]} | #{val[1]} | #{val[2]}\n" 
     result
 end
 
-def _reduce_20(val, _values, result)
+def _reduce_25(val, _values, result)
  paint "Addition #{val[0]} | #{val[1]} | #{val[2]}\n" 
     result
 end
