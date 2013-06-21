@@ -57,7 +57,7 @@ module ToothBrush
       slice_result = matched.slice(/[^(\n)]+/)
       unless slice_result.nil?
         return parsed_tokens << [:TERMINATOR , slice_result] if slice_result =~ TERMINATOR
-        return parsed_tokens << [:INDENT, slice_result] if slice_result =~ WHITESPACE
+        return parsed_tokens << [:INDENT, slice_result.length] if slice_result =~ WHITESPACE
       else
         unless (previous_token == :NEWLINE or previous_token == :TERMINATOR)
            parsed_tokens << [:TERMINATOR, ";"] 
